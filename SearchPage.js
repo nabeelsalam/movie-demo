@@ -13,7 +13,7 @@ import React, { useState, useEffect } from "react";
 
 export default function SearchPage({ navigation }) {
   const [loading, setLoading] = useState(false);
-  let [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [searchText, setSearchText] = useState("spiderman");
 
   useEffect(() => {

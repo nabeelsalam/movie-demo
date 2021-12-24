@@ -2,12 +2,10 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SearchPage from "./SearchPage";
+import DetailsPage from "./DetailsPage";
 
 const Stack = createNativeStackNavigator();
 
-const details = () => {
-  return <Text>Details Page</Text>;
-};
 export default function App() {
   return (
     <NavigationContainer>
@@ -19,7 +17,7 @@ export default function App() {
         />
         <Stack.Screen
           name="Details"
-          component={details}
+          component={DetailsPage}
           options={{ title: "Details" }}
         />
       </Stack.Navigator>

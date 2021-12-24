@@ -6,10 +6,12 @@ import {
   TextInput,
   ScrollView,
   ActivityIndicator,
+  TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 
-export default function SearchPage() {
+export default function SearchPage({ navigation }) {
   const [loading, setLoading] = useState(false);
   let [movies, setMovies] = useState([]);
   const [searchText, setSearchText] = useState("spiderman");
@@ -54,11 +56,21 @@ export default function SearchPage() {
                 uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
               };
               return (
-                <Image
+                <TouchableOpacity
+                  style={styles.posterContainer}
                   key={movie.id}
-                  style={styles.poster}
-                  source={imgPathObject}
-                ></Image>
+                  onPress={() => {
+                    navigation.navigate("Details", {
+                      item: movie,
+                    });
+                  }}
+                >
+                  <Image
+                    style={styles.poster}
+                    source={imgPathObject}
+                    on
+                  ></Image>
+                </TouchableOpacity>
               );
             })}
           </View>
@@ -81,11 +93,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  poster: {
+  posterContainer: {
     width: "47%",
-    borderRadius: 20,
     height: 400,
     margin: "1%",
+  },
+  poster: {
+    width: "100%",
+    borderRadius: 20,
+    height: "100%",
   },
   inputContainer: {
     flexDirection: "row",

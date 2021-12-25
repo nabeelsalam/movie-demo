@@ -8,8 +8,10 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Alert,
+  ImageBackground,
 } from "react-native";
 import React, { useState, useEffect } from "react";
+import Star from "react-native-star-view";
 
 export default function SearchPage({ navigation }) {
   const [loading, setLoading] = useState(false);
@@ -65,11 +67,17 @@ export default function SearchPage({ navigation }) {
                     });
                   }}
                 >
-                  <Image
+                  <ImageBackground
                     style={styles.poster}
                     source={imgPathObject}
                     on
-                  ></Image>
+                  >
+                    <Star
+                      score={movie.vote_average}
+                      totalScore={10}
+                      style={styles.starStyle}
+                    />
+                  </ImageBackground>
                 </TouchableOpacity>
               );
             })}
@@ -87,6 +95,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexWrap: "wrap",
+    backgroundColor: "gold",
   },
   loadingContainer: {
     flex: 1,
@@ -97,6 +106,7 @@ const styles = StyleSheet.create({
     width: "47%",
     height: 400,
     margin: "1%",
+    borderRadius: 20,
   },
   poster: {
     width: "100%",
@@ -111,8 +121,9 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 10,
     borderWidth: 1,
-    borderRadius: 10,
     padding: 10,
+    backgroundColor: "white",
+    fontWeight: "bold",
   },
   searchList: {
     flex: 1,
@@ -123,5 +134,11 @@ const styles = StyleSheet.create({
   spinnerTextStyle: {
     color: "#FFF",
     flex: 1,
+  },
+  starStyle: {
+    width: 100,
+    height: 20,
+    marginBottom: 20,
+    backgroundColor: "black",
   },
 });

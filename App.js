@@ -1,5 +1,5 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SearchPage from "./SearchPage";
 import DetailsPage from "./DetailsPage";
@@ -13,12 +13,28 @@ export default function App() {
         <Stack.Screen
           name="Search"
           component={SearchPage}
-          options={{ title: "Search" }}
+          options={{
+            title: "Search",
+            headerStyle: {
+              backgroundColor: "gold",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            },
+          }}
         />
         <Stack.Screen
           name="Details"
           component={DetailsPage}
-          options={{ title: "Details" }}
+          options={{
+            title: "Details",
+            headerStyle: {
+              backgroundColor: "gold",
+              headerTitleStyle: {
+                fontWeight: "bold",
+              },
+            },
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

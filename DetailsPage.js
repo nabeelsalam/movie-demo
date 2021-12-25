@@ -1,24 +1,42 @@
 import {
-  Image,
   ImageBackground,
   SafeAreaView,
   StyleSheet,
   Text,
   View,
 } from "react-native";
-import { Video, AVPlaybackStatus } from "expo-av";
-import Star from "react-native-star-view";
-import React from "react";
+import YoutubePlayer from "react-native-youtube-iframe";
+import React, { useEffect, useState } from "react";
 
 export default function DetailsPage({ route, navigation }) {
+  const [trailerUrl, setTrailerUrl] = useState([]);
+  const [playing, setPlaying] = useState(false);
   const movie = route.params.item;
-  const blurAmount = 10;
+  const blurAmount = 2;
   const imgPathObject = {
     uri: movie.backdrop_path
       ? `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`
       : `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
   };
   const video = React.useRef(null);
+  useEffect(() => {
+    fetch(
+      `https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=1807015c9aad92d4a94aa2dfd3ea17e4&language=en-US`
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        let videoObject = json.results.find(
+          (item) => item.type === "Trailer" && item.site === "YouTube"
+        );
+        setTrailerUrl(videoObject.key);
+      })
+      .catch((error) => {
+        console.error(error);
+        setTrailerUrl("");
+      });
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.posterContainer}>
@@ -27,20 +45,9 @@ export default function DetailsPage({ route, navigation }) {
           source={imgPathObject}
           blurRadius={blurAmount}
         >
-          <Star
-            score={movie.vote_average}
-            totalScore={10}
-            style={styles.starStyle}
-          />
-          <Video
-            ref={video}
-            style={styles.video}
-            source={{
-              uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-            }}
-            useNativeControls
-            resizeMode="cover"
-          />
+          <View style={styles.video}>
+            <YoutubePlayer height={300} play={playing} videoId={trailerUrl} />
+          </View>
           <Text numberOfLines={5} style={styles.overview}>
             " {movie.overview} "
           </Text>
@@ -57,6 +64,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexWrap: "wrap",
+    backgroundColor: "gold",
   },
   loadingContainer: {
     flex: 1,
@@ -102,15 +110,17 @@ const styles = StyleSheet.create({
   },
   overview: {
     color: "#fff",
+    backgroundColor: "#000",
     fontWeight: "bold",
     fontSize: 24,
     fontStyle: "italic",
+    padding: "10%",
   },
   starStyle: {
     width: 200,
     height: 40,
     marginBottom: 40,
-    backgroundColor: "brown",
+    backgroundColor: "black",
     borderRadius: 20,
   },
 });

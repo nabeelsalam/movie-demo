@@ -1,5 +1,6 @@
 import {
   Button,
+  Image,
   ImageBackground,
   SafeAreaView,
   ScrollView,
@@ -12,6 +13,7 @@ import React, { useEffect, useState } from "react";
 
 export default function DetailsPage({ route, navigation }) {
   const [trailerUrl, setTrailerUrl] = useState([]);
+  const [cast, setCast] = useState([]);
   const [playing, setPlaying] = useState(false);
   const movie = route.params.item;
   const blurAmount = 10;
@@ -30,11 +32,24 @@ export default function DetailsPage({ route, navigation }) {
         let videoObject = json.results.find(
           (item) => item.type === "Trailer" && item.site === "YouTube"
         );
-        setTrailerUrl(videoObject.key);
+        setTrailerUrl(videoObject ? videoObject.key : "");
       })
       .catch((error) => {
         console.error(error);
         setTrailerUrl("");
+      });
+  }, []);
+  useEffect(() => {
+    fetch(`http://10.0.0.7:5000/movies/cast?id=${movie.id}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        setCast(json);
+      })
+      .catch((error) => {
+        console.error(error);
+        setCast([]);
       });
   }, []);
   return (
@@ -48,6 +63,22 @@ export default function DetailsPage({ route, navigation }) {
           <View style={styles.video}>
             <YoutubePlayer height={300} play={playing} videoId={trailerUrl} />
           </View>
+          <View style={styles.castContainer}>
+            {cast
+              .filter((actor) => actor.order < 4)
+              .map((actor) => {
+                const imgPathObject = {
+                  uri: `https://image.tmdb.org/t/p/w500${actor.profile_path}`,
+                };
+                return (
+                  <Image
+                    key={actor.id}
+                    style={styles.actorImage}
+                    source={imgPathObject}
+                  ></Image>
+                );
+              })}
+          </View>
           <View style={styles.overviewContainer}>
             <ScrollView>
               <Text style={styles.overview}>" {movie.overview} "</Text>
@@ -55,7 +86,7 @@ export default function DetailsPage({ route, navigation }) {
           </View>
           <View style={styles.buttonContainer}>
             <Button
-              title="Read Reviews >>"
+              title="Read User Reviews >>"
               color="gold"
               onPress={() => {
                 navigation.navigate("Reviews", {
@@ -91,7 +122,7 @@ const styles = StyleSheet.create({
   poster: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: "center",
     padding: "2%",
   },
@@ -101,23 +132,35 @@ const styles = StyleSheet.create({
   },
   video: {
     width: "100%",
-    height: 200,
-    flex: 4,
+    height: 400,
+    flex: 2,
   },
   overviewContainer: {
     backgroundColor: "rgba(52, 52, 52, 0.5)",
-    flex: 7,
+    flex: 2,
+    borderRadius: 10,
   },
   overview: {
     color: "#fff",
     fontWeight: "bold",
-    fontSize: 24,
+    fontSize: 18,
     fontStyle: "italic",
-    padding: "10%",
+    padding: "5%",
   },
   buttonContainer: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
+  },
+  castContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  actorImage: {
+    height: 100,
+    maxWidth: 100,
+    flex: 1,
+    borderRadius: 10,
   },
 });

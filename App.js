@@ -41,7 +41,7 @@ export default function App() {
           name="Reviews"
           component={ReviewsPage}
           options={{
-            title: "Reviews",
+            title: "User Reviews",
             headerStyle: {
               backgroundColor: "gold",
               headerTitleStyle: {

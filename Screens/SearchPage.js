@@ -71,7 +71,6 @@ export default function SearchPage({ navigation }) {
                     style={styles.poster}
                     imageStyle={{ borderRadius: 20, overflow: "hidden" }}
                     source={imgPathObject}
-                    on
                   >
                     <Text style={styles.ratings}>
                       {movie.vote_average}{" "}

@@ -142,10 +142,12 @@ const styles = StyleSheet.create({
   reviewContainer: {
     margin: "2%",
     backgroundColor: "rgba(52, 52, 52, 0.5)",
+    borderRadius: 20,
+    overflow: "hidden",
   },
   reviewContent: {
     padding: "4%",
-    fontSize: 24,
+    fontSize: 16,
     color: "white",
   },
 });

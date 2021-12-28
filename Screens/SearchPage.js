@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "white",
     fontWeight: "bold",
+    fontSize: 20,
   },
   searchList: {
     flex: 1,
@@ -141,8 +142,7 @@ const styles = StyleSheet.create({
   },
   ratings: {
     color: "gold",
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 22,
     padding: "1%",
     textAlign: "center",
     backgroundColor: "black",

@@ -92,6 +92,7 @@ export default function DetailsPage({ route, navigation }) {
           <View style={styles.buttonContainer}>
             <Button
               title="Read User Reviews >>"
+              style={styles.reviewButton}
               color="gold"
               onPress={() => {
                 navigation.navigate("Reviews", {

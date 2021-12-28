@@ -71,11 +71,16 @@ export default function DetailsPage({ route, navigation }) {
                   uri: `https://image.tmdb.org/t/p/w500${actor.profile_path}`,
                 };
                 return (
-                  <Image
+                  <ImageBackground
                     key={actor.id}
                     style={styles.actorImage}
+                    imageStyle={{ borderRadius: 20, overflow: "hidden" }}
                     source={imgPathObject}
-                  ></Image>
+                  >
+                    <Text style={styles.actorName} numberOfLines={1}>
+                      {actor.name}{" "}
+                    </Text>
+                  </ImageBackground>
                 );
               })}
           </View>
@@ -107,7 +112,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    flexWrap: "wrap",
     backgroundColor: "gold",
   },
   loadingContainer: {
@@ -139,6 +143,8 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(52, 52, 52, 0.5)",
     flex: 2,
     borderRadius: 10,
+    flexDirection: "column",
+    justifyContent: "center",
   },
   overview: {
     color: "#fff",
@@ -146,6 +152,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontStyle: "italic",
     padding: "5%",
+    textAlign: "left",
+    flex: 1,
   },
   buttonContainer: {
     flex: 1,
@@ -162,5 +170,16 @@ const styles = StyleSheet.create({
     maxWidth: 100,
     flex: 1,
     borderRadius: 10,
+    overflow: "hidden",
+  },
+  actorName: {
+    position: "absolute",
+    bottom: 0,
+    backgroundColor: "black",
+    color: "white",
+    width: "100%",
+    fontSize: 12,
+    textAlign: "center",
+    padding: "1%",
   },
 });

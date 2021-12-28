@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    flexWrap: "wrap",
     backgroundColor: "gold",
   },
   loadingContainer: {

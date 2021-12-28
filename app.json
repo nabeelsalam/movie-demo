@@ -4,9 +4,9 @@
     "slug": "movie-demo",
     "version": "1.0.0",
     "orientation": "default",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/star-logo.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/star-logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

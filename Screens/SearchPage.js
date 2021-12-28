@@ -7,11 +7,10 @@ import {
   ScrollView,
   ActivityIndicator,
   TouchableOpacity,
-  Alert,
   ImageBackground,
+  Text,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import Star from "react-native-star-view";
 
 export default function SearchPage({ navigation }) {
   const [loading, setLoading] = useState(false);
@@ -39,6 +38,7 @@ export default function SearchPage({ navigation }) {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
+          clearButtonMode="always"
           onSubmitEditing={(event) => {
             setSearchText(event.nativeEvent.text);
           }}
@@ -69,14 +69,17 @@ export default function SearchPage({ navigation }) {
                 >
                   <ImageBackground
                     style={styles.poster}
+                    imageStyle={{ borderRadius: 20, overflow: "hidden" }}
                     source={imgPathObject}
                     on
                   >
-                    <Star
-                      score={movie.vote_average}
-                      totalScore={10}
-                      style={styles.starStyle}
-                    />
+                    <Text style={styles.ratings}>
+                      {movie.vote_average}{" "}
+                      <Image
+                        style={styles.star}
+                        source={require("../assets/star-filled.png")}
+                      />
+                    </Text>
                   </ImageBackground>
                 </TouchableOpacity>
               );
@@ -107,10 +110,11 @@ const styles = StyleSheet.create({
     height: 400,
     margin: "1%",
     borderRadius: 20,
+    borderColor: "black",
+    overflow: "hidden",
   },
   poster: {
     width: "100%",
-    borderRadius: 20,
     height: "100%",
   },
   inputContainer: {
@@ -121,6 +125,7 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 10,
     borderWidth: 1,
+    borderRadius: 10,
     padding: 10,
     backgroundColor: "white",
     fontWeight: "bold",
@@ -135,10 +140,16 @@ const styles = StyleSheet.create({
     color: "#FFF",
     flex: 1,
   },
-  starStyle: {
-    width: 100,
-    height: 20,
-    marginBottom: 20,
+  ratings: {
+    color: "gold",
+    fontSize: 24,
+    fontWeight: "bold",
+    padding: "1%",
+    textAlign: "center",
     backgroundColor: "black",
+  },
+  star: {
+    width: 16,
+    height: 16,
   },
 });

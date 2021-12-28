@@ -1,4 +1,5 @@
 import {
+  Button,
   ImageBackground,
   SafeAreaView,
   ScrollView,
@@ -52,6 +53,17 @@ export default function DetailsPage({ route, navigation }) {
               <Text style={styles.overview}>" {movie.overview} "</Text>
             </ScrollView>
           </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              title="Read Reviews >>"
+              color="gold"
+              onPress={() => {
+                navigation.navigate("Reviews", {
+                  item: movie,
+                });
+              }}
+            />
+          </View>
         </ImageBackground>
       </View>
     </SafeAreaView>
@@ -79,7 +91,7 @@ const styles = StyleSheet.create({
   poster: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "space-evenly",
+    justifyContent: "space-around",
     alignItems: "center",
     padding: "2%",
   },
@@ -90,11 +102,11 @@ const styles = StyleSheet.create({
   video: {
     width: "100%",
     height: 200,
-    flex: 1,
+    flex: 4,
   },
   overviewContainer: {
     backgroundColor: "rgba(52, 52, 52, 0.5)",
-    flex: 2,
+    flex: 7,
   },
   overview: {
     color: "#fff",
@@ -102,5 +114,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontStyle: "italic",
     padding: "10%",
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
   },
 });

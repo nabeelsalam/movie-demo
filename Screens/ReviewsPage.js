@@ -15,9 +15,9 @@ export default function ReviewsPage({ route, navigation }) {
   const [reviews, setReviews] = useState([]);
 
   const movie = route.params.item;
-  const filteredReviews = reviews.filter(
-    (review) => review.author_details.rating && review.author
-  );
+  const filteredReviews = reviews
+    .filter((review) => review.author_details.rating && review.author)
+    .sort((a, b) => b.author_details.rating - a.author_details.rating);
   const blurAmount = 10;
   const imgPathObject = {
     uri: movie.backdrop_path

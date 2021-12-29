@@ -53,36 +53,38 @@ export default function SearchPage({ navigation }) {
       ) : (
         <ScrollView>
           <View style={styles.searchList}>
-            {movies.map((movie) => {
-              const imgPathObject = {
-                uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-              };
-              return (
-                <TouchableOpacity
-                  style={styles.posterContainer}
-                  key={movie.id}
-                  onPress={() => {
-                    navigation.navigate("Details", {
-                      item: movie,
-                    });
-                  }}
-                >
-                  <ImageBackground
-                    style={styles.poster}
-                    imageStyle={{ borderRadius: 20, overflow: "hidden" }}
-                    source={imgPathObject}
+            {movies
+              .sort((a, b) => b.vote_average - a.vote_average)
+              .map((movie) => {
+                const imgPathObject = {
+                  uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+                };
+                return (
+                  <TouchableOpacity
+                    style={styles.posterContainer}
+                    key={movie.id}
+                    onPress={() => {
+                      navigation.navigate("Details", {
+                        item: movie,
+                      });
+                    }}
                   >
-                    <Text style={styles.ratings}>
-                      {movie.vote_average}{" "}
-                      <Image
-                        style={styles.star}
-                        source={require("../assets/star-filled.png")}
-                      />
-                    </Text>
-                  </ImageBackground>
-                </TouchableOpacity>
-              );
-            })}
+                    <ImageBackground
+                      style={styles.poster}
+                      imageStyle={{ borderRadius: 20, overflow: "hidden" }}
+                      source={imgPathObject}
+                    >
+                      <Text style={styles.ratings}>
+                        {movie.vote_average}{" "}
+                        <Image
+                          style={styles.star}
+                          source={require("../assets/star-filled.png")}
+                        />
+                      </Text>
+                    </ImageBackground>
+                  </TouchableOpacity>
+                );
+              })}
           </View>
         </ScrollView>
       )}

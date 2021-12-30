@@ -7,12 +7,18 @@ import {
   ImageBackground,
   Text,
   FlatList,
+  Button,
+  Modal,
+  Pressable,
+  ScrollView,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 
 export default function ReviewsPage({ route, navigation }) {
   const [loading, setLoading] = useState(false);
   const [reviews, setReviews] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalContent, setModalContent] = useState("");
 
   const movie = route.params.item;
   const filteredReviews = reviews
@@ -53,12 +59,44 @@ export default function ReviewsPage({ route, navigation }) {
             source={imgPathObject}
             blurRadius={blurAmount}
           >
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+                setModalVisible(!modalVisible);
+              }}
+            >
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <View style={styles.modalReviewContainer}>
+                    <ScrollView>
+                      <Text style={styles.modalReviewContent}>
+                        {modalContent}
+                      </Text>
+                    </ScrollView>
+
+                    <Button
+                      title="Hide Review"
+                      style={styles.modalReviewButton}
+                      color="gold"
+                      onPress={() => {
+                        setModalVisible(false);
+                      }}
+                    />
+                  </View>
+                </View>
+              </View>
+            </Modal>
             <FlatList
               data={filteredReviews}
               renderItem={({ item }) => (
                 <View style={styles.reviewContainer}>
                   <View style={styles.ratingsContainer}>
-                    <Text style={styles.ratingsText}>{item.author}</Text>
+                    <Text style={styles.ratingsText} numberOfLines={1}>
+                      {item.author}
+                    </Text>
                     <Text style={styles.ratingsText}>
                       {item.author_details.rating}{" "}
                       <Image
@@ -67,7 +105,18 @@ export default function ReviewsPage({ route, navigation }) {
                       />
                     </Text>
                   </View>
-                  <Text style={styles.reviewContent}>{item.content}</Text>
+                  <Text numberOfLines={2} style={styles.reviewContent}>
+                    {item.content}
+                  </Text>
+                  <Button
+                    title="Read Full Review >>"
+                    style={styles.reviewButton}
+                    color="gold"
+                    onPress={() => {
+                      setModalContent(item.content);
+                      setModalVisible(true);
+                    }}
+                  />
                 </View>
               )}
             />
@@ -134,6 +183,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     padding: "1%",
     margin: "2%",
+    maxWidth: "50%",
   },
   star: {
     width: 16,
@@ -145,9 +195,47 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: "hidden",
   },
+  modalReviewContainer: {
+    margin: "2%",
+    backgroundColor: "rgba(52, 52, 52, 0.9)",
+    borderRadius: 20,
+    overflow: "hidden",
+    flex: 1,
+    flexDirection: "column",
+  },
   reviewContent: {
     padding: "4%",
     fontSize: 16,
     color: "white",
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    backgroundColor: "transparent",
+    borderRadius: 20,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalReviewContent: {
+    padding: "5%",
+    fontSize: 22,
+    color: "white",
+    fontWeight: "bold",
+    flex: 8,
+    overflow: "scroll",
+  },
+  modalReviewButton: {
+    flex: 1,
   },
 });

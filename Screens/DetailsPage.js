@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 export default function DetailsPage({ route, navigation }) {
   const [trailerUrl, setTrailerUrl] = useState([]);
   const [cast, setCast] = useState([]);
+  const [crew, setCrew] = useState([]);
   const [playing, setPlaying] = useState(false);
   const movie = route.params.item;
   const blurAmount = 10;
@@ -52,6 +53,19 @@ export default function DetailsPage({ route, navigation }) {
         setCast([]);
       });
   }, []);
+  useEffect(() => {
+    fetch(`http://10.0.0.7:5000/movies/crew?id=${movie.id}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        setCrew(json);
+      })
+      .catch((error) => {
+        console.error(error);
+        setCrew([]);
+      });
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.posterContainer}>
@@ -79,6 +93,32 @@ export default function DetailsPage({ route, navigation }) {
                   >
                     <Text style={styles.actorName} numberOfLines={1}>
                       {actor.name}{" "}
+                    </Text>
+                  </ImageBackground>
+                );
+              })}
+          </View>
+          <View style={styles.castContainer}>
+            {crew
+              .filter(
+                (member) =>
+                  member.job === "Producer" || member.job === "Director"
+              )
+              .map((member) => {
+                const imgPathObject = {
+                  uri: `https://image.tmdb.org/t/p/w500${member.profile_path}`,
+                };
+                return (
+                  <ImageBackground
+                    key={member.id}
+                    style={styles.actorImage}
+                    imageStyle={{ borderRadius: 20, overflow: "hidden" }}
+                    source={imgPathObject}
+                  >
+                    <Text style={styles.actorName} numberOfLines={2}>
+                      {member.name}
+                      {"\n"}
+                      {member.job}
                     </Text>
                   </ImageBackground>
                 );
@@ -142,10 +182,11 @@ const styles = StyleSheet.create({
   },
   overviewContainer: {
     backgroundColor: "rgba(52, 52, 52, 0.5)",
-    flex: 2,
+    flex: 1,
     borderRadius: 10,
     flexDirection: "column",
     justifyContent: "center",
+    paddingBottom: "5%",
   },
   overview: {
     color: "#fff",

@@ -1,6 +1,5 @@
 import {
   Button,
-  Image,
   ImageBackground,
   SafeAreaView,
   ScrollView,
@@ -97,7 +96,7 @@ export default function DetailsPage({ route, navigation }) {
         >
           <View style={styles.genres}>
             {movie.genre_ids.slice(0, 3).map((genre) => (
-              <View style={styles.genre}>
+              <View key={genre} style={styles.genre}>
                 <Text style={styles.genreText} numberOfLines={1}>
                   {genres[genre]}
                 </Text>
@@ -134,6 +133,7 @@ export default function DetailsPage({ route, navigation }) {
                 (member) =>
                   member.job === "Producer" || member.job === "Director"
               )
+              .slice(0, 4)
               .map((member) => {
                 const imgPathObject = {
                   uri: `https://image.tmdb.org/t/p/w500${member.profile_path}`,
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-evenly",
     alignItems: "center",
-    padding: "2%",
+    padding: "1%",
   },
   spinnerTextStyle: {
     color: "#FFF",
@@ -209,6 +209,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 400,
     flex: 2,
+    margin: "2%",
   },
   overviewContainer: {
     backgroundColor: "rgba(52, 52, 52, 0.5)",
@@ -266,11 +267,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 50,
     textAlign: "center",
-    backgroundColor: "white",
+    backgroundColor: "rgba(52, 52, 52, 0.8)",
     alignItems: "center",
   },
   genreText: {
     fontSize: 16,
-    color: "black",
+    color: "white",
   },
 });

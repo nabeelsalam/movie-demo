@@ -1,9 +1,9 @@
 import React from "react";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import SearchPage from "./Screens/SearchPage";
-import DetailsPage from "./Screens/DetailsPage";
-import ReviewsPage from "./Screens/ReviewsPage";
+import SearchPage from "./screens/SearchPage";
+import DetailsPage from "./screens/DetailsPage";
+import ReviewsPage from "./screens/ReviewsPage";
 
 const Stack = createNativeStackNavigator();
 

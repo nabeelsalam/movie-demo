@@ -3,12 +3,12 @@
     "name": "movie-demo",
     "slug": "movie-demo",
     "version": "1.0.0",
-    "orientation": "default",
-    "icon": "./assets/star-logo.png",
+    "orientation": "portrait",
+    "icon": "./assets/app-icon.png",
     "splash": {
-      "image": "./assets/star-logo.png",
+      "image": "./assets/app-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FFD700"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -19,12 +19,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/app-icon.png",
+        "backgroundColor": "#FFD700"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/app-icon.png"
     }
   }
 }

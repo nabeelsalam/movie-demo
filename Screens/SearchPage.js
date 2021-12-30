@@ -95,7 +95,6 @@ export default function SearchPage({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
     flexWrap: "wrap",
@@ -147,7 +146,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     padding: "1%",
     textAlign: "center",
-    backgroundColor: "black",
+    backgroundColor: "rgba(52, 52, 52, 0.6)",
   },
   star: {
     width: 16,

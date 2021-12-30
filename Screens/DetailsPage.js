@@ -23,6 +23,27 @@ export default function DetailsPage({ route, navigation }) {
       ? `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`
       : `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
   };
+  const genres = {
+    28: "Action",
+    12: "Adventure",
+    16: "Animation",
+    35: "Comedy",
+    80: "Crime",
+    99: "Documentary",
+    18: "Drama",
+    10751: "Family",
+    14: "Fantasy",
+    36: "History",
+    27: "Horror",
+    10402: "Music",
+    9648: "Mystery",
+    10749: "Romance",
+    878: "Science Fiction",
+    10770: "TV Movie",
+    53: "Thriller",
+    10752: "War",
+    37: "Western",
+  };
   const video = React.useRef(null);
   useEffect(() => {
     fetch(`http://10.0.0.7:5000/movies/videos?id=${movie.id}`)
@@ -74,6 +95,15 @@ export default function DetailsPage({ route, navigation }) {
           source={imgPathObject}
           blurRadius={blurAmount}
         >
+          <View style={styles.genres}>
+            {movie.genre_ids.slice(0, 3).map((genre) => (
+              <View style={styles.genre}>
+                <Text style={styles.genreText} numberOfLines={1}>
+                  {genres[genre]}
+                </Text>
+              </View>
+            ))}
+          </View>
           <View style={styles.video}>
             <YoutubePlayer height={300} play={playing} videoId={trailerUrl} />
           </View>
@@ -223,5 +253,24 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: "center",
     padding: "1%",
+  },
+  genres: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  genre: {
+    flex: 1,
+    padding: "3%",
+    margin: "1%",
+    justifyContent: "center",
+    borderRadius: 50,
+    textAlign: "center",
+    backgroundColor: "white",
+    alignItems: "center",
+  },
+  genreText: {
+    fontSize: 16,
+    color: "black",
   },
 });

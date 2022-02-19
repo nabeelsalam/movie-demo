@@ -4,27 +4,29 @@
     "slug": "movie-demo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/app-icon.png",
+    "icon": "./assets/app-icon-round.png",
     "splash": {
-      "image": "./assets/app-icon.png",
+      "image": "./assets/app-icon-round.png",
       "resizeMode": "contain",
-      "backgroundColor": "#FFD700"
+      "backgroundColor": "#FFFFFF"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.movie-demo.movie-demo",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/app-icon.png",
-        "backgroundColor": "#FFD700"
+        "foregroundImage": "./assets/app-icon-round.png",
+        "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/app-icon.png"
+      "favicon": "./assets/app-icon-round.png"
     }
   }
 }
